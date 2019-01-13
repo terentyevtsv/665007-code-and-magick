@@ -21,7 +21,6 @@ var EYES_COLOR = ['black', 'red', 'blue', 'yellow', 'green'];
 var randomIndex = function (minIndex, maxIndex) {
   return Math.floor(Math.random() * (maxIndex - minIndex + 1) + minIndex);
 };
-    
 var similarWizards = [];
 var i = 0;
 for (i; i < 4; i++) {
@@ -66,7 +65,6 @@ var FIREBALL_COLOR = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
   var wizardCoatElement = document.querySelector('.wizard-coat');
   var wizardEyesElement = document.querySelector('.wizard-eyes');
   var wizardFireballElement = document.querySelector('.setup-fireball-wrap');
-    
   var wizard = {
     onEyesChange: function (color) {
       return color;
@@ -78,7 +76,7 @@ var FIREBALL_COLOR = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
       return color;
     }
   };
-    
+
   wizardCoatElement.addEventListener('click', function () {
     var newColor = window.util.getRandomNum(COAT_COLOR);
     inputWizardCoat.value = newColor;
@@ -92,7 +90,7 @@ var FIREBALL_COLOR = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
     wizardEyesElement.style.fill = newColor;
     wizard.onEyesChange(newColor);
   });
-    
+
   wizardFireballElement.addEventListener('click', function () {
     var newColor = window.util.getRandomNum(FIREBALL_COLOR);
     inputWizardFireball.style.background = newColor;
@@ -102,27 +100,27 @@ var FIREBALL_COLOR = ['#ee4830', '#30a8ee', '#5ce6c0', '#e848d5', '#e6e848'];
 })();
 
 window.util = {
-    isEscEvent: function (evt, action) {
-      if (evt.keyCode === ESC_KEYCODE) {
-        action();
-      }
-    },
-    isEnterEvent: function (evt, action) {
-      if (evt.keyCode === ENTER_KEYCODE) {
-        action();
-      }
-    },
-    getRandomNum: function (array) {
-      var index = Math.floor(Math.random() * array.length);
-      return array[index];
-    },
-    ESC_KEYCODE: ESC_KEYCODE,
-    ENTER_KEYCODE: ENTER_KEYCODE,
-    FIREBALL_COLOR: FIREBALL_COLOR,
-    COAT_COLOR: COAT_COLOR,
-    EYES_COLOR: EYES_COLOR
-  };
-    
+  isEscEvent: function (evt, action) {
+    if (evt.keyCode === ESC_KEYCODE) {
+      action();
+    }
+  },
+  isEnterEvent: function (evt, action) {
+    if (evt.keyCode === ENTER_KEYCODE) {
+      action();
+    }
+  },
+  getRandomNum: function (array) {
+    var index = Math.floor(Math.random() * array.length);
+    return array[index];
+  },
+  ESC_KEYCODE: ESC_KEYCODE,
+  ENTER_KEYCODE: ENTER_KEYCODE,
+  FIREBALL_COLOR: FIREBALL_COLOR,
+  COAT_COLOR: COAT_COLOR,
+  EYES_COLOR: EYES_COLOR
+};
+
 // Нажатие на элемент .setup-open удаляет класс hidden
 // у блока setup Нажатие на элемент .setup-close, расположенный
 // внутри блока setup возвращает ему класс hidden
@@ -131,37 +129,37 @@ var setup = document.querySelector('.setup');
 var setupClose = setup.querySelector('.setup-close');
 var userNameInput = setup.querySelector('.setup-user-name');
 
-var onPopupEscPress = function(evt) {
+var onPopupEscPress = function (evt) {
   if (evt.keyCode === ESC_KEYCODE && userNameInput !== document.activeElement) {
     closePopup();
   }
 };
 
-var openPopup = function() {
+var openPopup = function () {
   setup.classList.remove('hidden');
   document.addEventListener('keydown', onPopupEscPress);
 };
 
-var closePopup = function() {
+var closePopup = function () {
   setup.classList.add('hidden');
   document.removeEventListener('keydown', onPopupEscPress);
 };
 
-setupOpen.addEventListener('click', function() {
+setupOpen.addEventListener('click', function () {
   openPopup();
 });
 
-setupOpen.addEventListener('keydown', function(evt) {
+setupOpen.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
     openPopup();
   }
 });
 
-setupClose.addEventListener('click', function() {
+setupClose.addEventListener('click', function () {
   closePopup();
 });
 
-setupClose.addEventListener('keydown', function(evt) {
+setupClose.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ENTER_KEYCODE) {
     closePopup();
   }
