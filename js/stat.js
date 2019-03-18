@@ -10,6 +10,7 @@ var COLUMN_WIDTH = 40;
 var COLUMN_DISTANCE = 50;
 var TEXT_DISTANCE = 15;
 var TOP_CLOUD_DISTANCE = 5;
+var TOP_LABEL_LUFT = 40;
 
 var getMaxResult = function(times) {
   var maxTime = times[0];
@@ -45,8 +46,8 @@ var drawBlock = function(x, y, time, name, maxTime, ctx, fColor) {
   var blockHeight = DIAGRAM_HEIGHT * time / maxTime;
 
   // Расстояние от вершины диаграммы до верхней части текущего блока
-  var topDistance = y + (DIAGRAM_HEIGHT - blockHeight) + 40;
-  var maxDistance = y + DIAGRAM_HEIGHT + TEXT_DISTANCE + 40;
+  var topDistance = y + (DIAGRAM_HEIGHT - blockHeight) + TOP_LABEL_LUFT;
+  var maxDistance = y + DIAGRAM_HEIGHT + TEXT_DISTANCE + TOP_LABEL_LUFT;
 
   ctx.fillStyle = fColor;
   ctx.fillRect(x, topDistance, COLUMN_WIDTH, blockHeight);
