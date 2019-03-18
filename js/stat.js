@@ -8,6 +8,9 @@ var FONT_OPTIONS = "16px PT Mono";
 var DIAGRAM_HEIGHT = 150;
 var COLUMN_WIDTH = 40;
 var COLUMN_DISTANCE = 50;
+var TEXT_DISTANCE = 15;
+var TOP_CLOUD_DISTANCE = 5;
+var TOP_LABEL_LUFT = 40;
 
 var getMaxResult = function(times) {
   var maxTime = times[0];
@@ -27,7 +30,11 @@ var drawDiagram = function(times, names, startX, topY, ctx) {
   // Рисование диаграммы
   var currentX = startX;
   for (var i = 0; i < times.length; ++i) {
-    drawBlock(currentX, topY, times[i], names[i], maxTime, ctx, "");
+    var currentColor = "RGBA(255, 0, 0, 1)";
+    if (names[i] !== "Вы")
+      currentColor = "RGBA(0, 0, 255, " + Math.random() + ")";
+
+    drawBlock(currentX, topY, Math.round(times[i]), names[i], maxTime, ctx, currentColor);
     currentX += (COLUMN_WIDTH + COLUMN_DISTANCE);
   }
 }
@@ -39,13 +46,13 @@ var drawBlock = function(x, y, time, name, maxTime, ctx, fColor) {
   var blockHeight = DIAGRAM_HEIGHT * time / maxTime;
 
   // Расстояние от вершины диаграммы до верхней части текущего блока
-  var topDistance = y + (DIAGRAM_HEIGHT - blockHeight);
-  var maxDistance = y + DIAGRAM_HEIGHT + 10;
+  var topDistance = y + (DIAGRAM_HEIGHT - blockHeight) + TOP_LABEL_LUFT;
+  var maxDistance = y + DIAGRAM_HEIGHT + TEXT_DISTANCE + TOP_LABEL_LUFT;
 
-  //ctx.fillStyle = fColor;
+  ctx.fillStyle = fColor;
   ctx.fillRect(x, topDistance, COLUMN_WIDTH, blockHeight);
 
-  ctx.fillText(time.toString(), x, topDistance - 10);
+  ctx.fillText(time.toString(), x, topDistance - TEXT_DISTANCE);
   ctx.fillText(name, x, maxDistance);
 }
 
@@ -80,12 +87,12 @@ var renderStatistics = function(ctx, names, times) {
   drawCloud(ctx, 0, "#FFFFFF");
 
   var textX = CLOUD_X + DELTA;
-  var textY = CLOUD_Y + 5;
+  var textY = CLOUD_Y + TOP_CLOUD_DISTANCE;
   writeText(ctx, textX, textY, "Ура вы победили!");
 
-  textY += 15;
+  textY += TEXT_DISTANCE;
   writeText(ctx, textX, textY, "Список результатов:");
 
-  drawDiagram(times, names, textX, textY + 15, ctx);
+  drawDiagram(times, names, textX, textY + TEXT_DISTANCE, ctx);
 }
 
