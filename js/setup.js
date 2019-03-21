@@ -1,0 +1,71 @@
+var setup = document.querySelector(".setup");
+setup.classList.remove("hidden");
+
+var setupSimilar = document.querySelector(".setup-similar");
+setupSimilar.classList.remove("hidden");
+
+var template = document.querySelector("#similar-wizard-template")
+  .content;
+
+var setupSimilarList = document.querySelector(".setup-similar-list");
+
+var firstNames = [  "Иван", "Хуан Себастьян",
+                    "Мария", "Кристоф", "Виктор",
+                    "Юлия", "Люпита", "Вашингтон"];
+
+var lastNames = [ "да Марья", "Верон", "Мирабелла",
+                  "Вальц", "Онопко", "Топольницкая",
+                  "Нионго", "Ирвинг"];
+
+var coatColors = ["rgb(101, 137, 164)", "rgb(241, 43, 107)", "rgb(146, 100, 161)",
+                  "rgb(56, 159, 117)", "rgb(215, 210, 55)", "rgb(0, 0, 0)"];
+
+var eyesColors = ["black", "red", "blue", "yellow", "green"];
+
+var getRandomNumber = function(min, max) {
+  var rand = min + Math.random() * (max + 1 - min);
+  rand = Math.floor(rand);
+
+  return rand;
+}
+
+// Функция генерации 4-х волшебников
+var getWizards = function() {
+  var wizards = [];
+
+  for (var i = 0; i < 4; ++i) {
+    var nameIndex = getRandomNumber(0, firstNames.length);
+    var surnameIndex = getRandomNumber(0, lastNames.length);
+    var coatColorsIndex = getRandomNumber(0, coatColors.length);
+    var eyesColorsIndex = getRandomNumber(0, eyesColors.length);
+
+    var wizard = {
+      name: firstNames[nameIndex] + " " + lastNames[surnameIndex],
+      coatColor: coatColors[coatColorsIndex],
+      eyesColor: eyesColors[eyesColorsIndex]
+    };
+
+    wizards.push(wizard);
+  }
+
+  return wizards;
+}
+
+// Функция заполнения нового элемента из шаблона данными из JS объекта
+var createWizard = function(wizard, wizardInfo) {
+
+}
+
+// Функция заполнения блока DOM-элементами на основе массива JS-объектов
+var createWizards = function() {
+  var wizardInfoItems = getWizards();
+
+  for (var i = 0; i < wizardInfoItems.length; ++i) {
+    var element = template.cloneNode(true);
+    createWizard(element, wizardInfoItems[i]);
+
+    setupSimilarList.appendChild(element);
+  }
+}
+
+createWizards();
