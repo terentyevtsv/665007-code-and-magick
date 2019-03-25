@@ -34,10 +34,10 @@ var getWizards = function() {
   var wizards = [];
 
   for (var i = 0; i < 4; ++i) {
-    var nameIndex = getRandomNumber(0, firstNames.length);
-    var surnameIndex = getRandomNumber(0, lastNames.length);
-    var coatColorsIndex = getRandomNumber(0, coatColors.length);
-    var eyesColorsIndex = getRandomNumber(0, eyesColors.length);
+    var nameIndex = getRandomNumber(0, firstNames.length - 1);
+    var surnameIndex = getRandomNumber(0, lastNames.length - 1);
+    var coatColorsIndex = getRandomNumber(0, coatColors.length - 1);
+    var eyesColorsIndex = getRandomNumber(0, eyesColors.length - 1);
 
     var wizard = {
       name: firstNames[nameIndex] + " " + lastNames[surnameIndex],
@@ -53,7 +53,13 @@ var getWizards = function() {
 
 // Функция заполнения нового элемента из шаблона данными из JS объекта
 var createWizard = function(wizard, wizardInfo) {
+  var namePlace = wizard.querySelector(".setup-similar-label");
+  var coatColorPlace = wizard.querySelector(".wizard-coat");
+  var eyesColorPlace = wizard.querySelector(".wizard-eyes");
 
+  namePlace.textContent = wizardInfo.name;
+  coatColorPlace.style.fill = wizardInfo.coatColor;
+  eyesColorPlace.style.fill = wizardInfo.eyesColor;
 }
 
 // Функция заполнения блока DOM-элементами на основе массива JS-объектов
