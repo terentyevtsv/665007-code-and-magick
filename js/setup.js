@@ -1,5 +1,42 @@
+var ESCAPE = 27;
+var ENTER = 13;
+
+var setupOpen = document.querySelector(".setup-open");
 var setup = document.querySelector(".setup");
-setup.classList.remove("hidden");
+var setupClose = setup.querySelector(".setup-close");
+setupOpen.addEventListener("click", function() {
+  setup.classList.remove("hidden");
+});
+
+setupClose.addEventListener("click", function() {
+  setup.classList.add("hidden");
+});
+
+var documentKeydownHandler = function(evt) {
+  setup.removeEventListener("keydown", setupKeydownHandler);
+  if (evt.keyCode === ENTER)
+    setup.classList.remove("hidden");
+  if (evt.keyCode === ESCAPE)
+  {
+    if (evt.target.className !== "setup-user-name")
+      setup.classList.add("hidden");
+  }
+};
+
+var setupKeydownHandler = function(evt) {
+  document.removeEventListener("keydown", documentKeydownHandler);
+  if (evt.keyCode === ENTER)
+    setup.classList.add("hidden");
+};
+
+setupClose.addEventListener("focus", function() {
+  setup.addEventListener("keydown", setupKeydownHandler);
+});
+
+var setupOpenIcon = setupOpen.querySelector(".setup-open-icon");
+setupOpenIcon.addEventListener("focus", function() {
+  document.addEventListener("keydown", documentKeydownHandler);
+});
 
 var setupSimilar = document.querySelector(".setup-similar");
 setupSimilar.classList.remove("hidden");
