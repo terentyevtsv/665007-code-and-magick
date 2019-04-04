@@ -1,6 +1,21 @@
 var ESCAPE = 27;
 var ENTER = 13;
 
+var COAT_COLORS = [
+  "rgb(101, 137, 164)", "rgb(241, 43, 107)", "rgb(146, 100, 161)",
+  "rgb(56, 159, 117)", "rgb(215, 210, 55)", "rgb(0, 0, 0)"
+];
+
+var EYES_COLORS = [
+  "black", "red", "blue",
+  "yellow", "green"
+];
+
+var FIREBALL_COLORS = [
+  "#ee4830", "#30a8ee", "#5ce6c0",
+  "#e848d5", "#e6e848"
+];
+
 var setupOpen = document.querySelector(".setup-open");
 var setup = document.querySelector(".setup");
 var setupClose = setup.querySelector(".setup-close");
@@ -112,3 +127,31 @@ var createWizards = function() {
 }
 
 createWizards();
+
+var setupWizard = document.querySelector(".setup-wizard");
+
+// Замена цвета плаща по клику
+var coatColorPlace = setupWizard.querySelector(".wizard-coat");
+coatColorPlace.addEventListener("click", function() {
+  var index = getRandomNumber(0, COAT_COLORS.length - 1);
+  coatColorPlace.style.fill = COAT_COLORS[index];
+});
+
+// Замена цвета глаз по нажатию
+var eyesColorPlace = setupWizard.querySelector(".wizard-eyes");
+eyesColorPlace.addEventListener("click", function() {
+  var index = getRandomNumber(0, EYES_COLORS.length - 1);
+  eyesColorPlace.style.fill = EYES_COLORS[index];
+});
+
+var fireballWrap = document.querySelector(".setup-fireball-wrap");
+var fireballInput = document.querySelector(".setup-fireball-wrap input");
+
+fireballWrap.addEventListener("click", function() {
+  var index = getRandomNumber(0, FIREBALL_COLORS.length - 1);
+  fireballWrap.style.fill = FIREBALL_COLORS[index];
+  fireballInput.textContent = FIREBALL_COLORS[index];
+});
+
+
+
