@@ -130,27 +130,27 @@ createWizards();
 
 var setupWizard = document.querySelector(".setup-wizard");
 
-// Замена цвета плаща по клику
-var coatColorPlace = setupWizard.querySelector(".wizard-coat");
-coatColorPlace.addEventListener("click", function() {
-  var index = getRandomNumber(0, COAT_COLORS.length - 1);
-  coatColorPlace.style.fill = COAT_COLORS[index];
-});
+var prepareDataForSend = function(svgClass, inputClass, colors) {
+  // Замена цвета по нажатию
+  var colorPlace = setupWizard.querySelector(svgClass);
+  var tmpInput = document.querySelector(inputClass);
+  colorPlace.addEventListener("click", function() {
+    var index = getRandomNumber(0, colors.length - 1);
+    colorPlace.style.fill = colors[index];
+    tmpInput.value = colors[index];
+  });
+}
 
-// Замена цвета глаз по нажатию
-var eyesColorPlace = setupWizard.querySelector(".wizard-eyes");
-eyesColorPlace.addEventListener("click", function() {
-  var index = getRandomNumber(0, EYES_COLORS.length - 1);
-  eyesColorPlace.style.fill = EYES_COLORS[index];
-});
+prepareDataForSend(".wizard-eyes", ".eyes-sending-data", EYES_COLORS);
+prepareDataForSend(".wizard-coat", ".coat-sending-data", COAT_COLORS);
 
 var fireballWrap = document.querySelector(".setup-fireball-wrap");
-var fireballInput = document.querySelector(".setup-fireball-wrap input");
+var fireballInput = document.querySelector(".fireball-sending-data");
 
 fireballWrap.addEventListener("click", function() {
   var index = getRandomNumber(0, FIREBALL_COLORS.length - 1);
-  fireballWrap.style.fill = FIREBALL_COLORS[index];
-  fireballInput.textContent = FIREBALL_COLORS[index];
+  fireballWrap.style.background = FIREBALL_COLORS[index];
+  fireballInput.value = FIREBALL_COLORS[index];
 });
 
 
